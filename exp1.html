@@ -16,20 +16,45 @@
     <h1>Experiment 1</h1>
     <h2>To open the console right click and click inspect from the dropdown menu.</h2>
     <script>
+        //capitalizes every other letter
         var userInput = prompt("Enter a sentence","");
         var string1char= "";
         var newString = "";
+        var spaceCount = 0;
         for(var i=0;i<userInput.length;i++){
             string1char = userInput[i];
-         if((i % 2 == 0) && (string1char!==" ")){
-            var upperCase = string1char.toUpperCase();
-            newString += upperCase;
-             }
-            else{
-            newString += userInput[i];
+         if( string1char!==" "){
+            if((i-spaceCount) % 2 == 0){
+                var upperCase = string1char.toUpperCase();
+                newString += upperCase;
+            }else{
+                newString += userInput[i];
             }
+        } else{
+            newString+= ' ';
+            ++spaceCount;
         }
+    }
     
+        console.log(newString);
+    </script>
+    <script>
+        // capitalizes first letters
+        var newString = "";
+        var previousChar = " ";  
+
+        for (var i = 0; i < userInput.length; i++) {
+            var currentChar = userInput[i];
+
+            if (previousChar === " ") {
+                newString += currentChar.toUpperCase();
+            } else {
+                newString += currentChar;
+            }
+
+            previousChar = currentChar;
+        }
+
         console.log(newString);
     </script>
 </body>
