@@ -39,22 +39,20 @@
         console.log(newString);
     </script>
     <script>
-        // capitalizes first letters
+        // Capitalizes every First letter
+        var myString = userInput;
         var newString = "";
-        var previousChar = " ";  
-
-        for (var i = 0; i < userInput.length; i++) {
-            var currentChar = userInput[i];
-
-            if (previousChar === " ") {
-                newString += currentChar.toUpperCase();
-            } else {
-                newString += currentChar;
+        var currChar = "";
+        var prevChar = " ";
+        for (var i = 0; i < myString.length; i++) {
+            currChar = myString[i];
+            if(prevChar===" "){
+                newString += currChar.toUpperCase();
+            }else{
+                newString +=currChar;
             }
-
-            previousChar = currentChar;
+            prevChar=currChar;
         }
-
         console.log(newString);
     </script>
 </body>
