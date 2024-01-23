@@ -16,30 +16,32 @@
     <h1>Experiment 1</h1>
     <h2>To open the console right click and click inspect from the dropdown menu.</h2>
     <script>
+         var userInput = prompt("Enter a sentence","");
+
         //capitalizes every other letter
-        var userInput = prompt("Enter a sentence","");
-        var string1char= "";
-        var newString = "";
-        var spaceCount = 0;
-        for(var i=0;i<userInput.length;i++){
-            string1char = userInput[i];
-         if( string1char!==" "){
-            if((i-spaceCount) % 2 == 0){
-                var upperCase = string1char.toUpperCase();
-                newString += upperCase;
-            }else{
-                newString += userInput[i];
+        function everyOtherCapital(){
+                var string1char= "";
+                var newString = "";
+                var spaceCount = 0;
+                for(var i=0;i<userInput.length;i++){
+                    string1char = userInput[i];
+                if( string1char!==" "){
+                    if((i-spaceCount) % 2 == 0){
+                        var upperCase = string1char.toUpperCase();
+                        newString += upperCase;
+                    }else{
+                        newString += userInput[i];
+                    }
+                } else{
+                    newString+= ' ';
+                    ++spaceCount;
+                }
             }
-        } else{
-            newString+= ' ';
-            ++spaceCount;
+            
+                console.log(newString);
         }
-    }
-    
-        console.log(newString);
-    </script>
-    <script>
-        // Capitalizes every First letter
+  
+        function everyFirstCapital(){
         var myString = userInput;
         var newString = "";
         var currChar = "";
@@ -54,6 +56,9 @@
             prevChar=currChar;
         }
         console.log(newString);
+    }
+    everyFirstCapital();
+    everyOtherCapital();
     </script>
 </body>
 </html>
