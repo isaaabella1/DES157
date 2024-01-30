@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DOM Experiments </title>
+</head>
+<body>
+    <h1>This page is </h1>
+</body>
+<script>
+    function validateInput(userInput) {
+        var colors = ['red', 'orange', 'yellow', 'green', 'blue', 'purple'];
+        for (var i = 0; i < colors.length; i++) {
+            if (colors[i] === userInput.toLowerCase()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    var userInput = "";
+    while (!validateInput(userInput)) {
+        userInput = prompt("Enter a color of the rainbow for the background", '');
+        document.body.style.backgroundColor = userInput;
+        
+    }
+    document.querySelector('h1').innerHTML = `This page is ${userInput}`;
+</script>
+</html>

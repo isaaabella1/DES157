@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coffee Shop Mad Libs</title>
+</head>
+<body>
+    <header></header>
+    <main></main>
+</body>
+</html>
+<form method="post" action="processor.php" id="theform"> 
+        <label for="fname">First Name</label>
+        <!-- for attribute = name to connect label to box -->
+        <input type = "text" name = "fname" id ="fname" placeholder="Bob" required = "required">
+        <input type="submit" id="submit">
+        //
+</form>
+<script>
+//https://stackoverflow.com/questions/21397743/passing-html-input-value-as-a-javascript-function-parameter
+//https://stackoverflow.com/questions/70101245/put-text-on-image-with-javascript
+    document.getElementById('theform').addEventListener('submit', respellName);
+
+    function respellName(){
+        var customerName = document.getElementById("fname").value;
+        console.log(customerName);
+        var typedName = customerName;
+
+        return faslse;
+    }
+    
+    respellName(customerName);
+    
+</script>
+ 
+    

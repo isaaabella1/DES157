@@ -11,11 +11,41 @@
     function myFunc(){
         var myString = "This is a string.";
         var upperString = myString.toUpperCase();
-    }
+    
     console.log(myString);
     console.log(upperString);
+        }
+    function addNums(num1, num2){
+        var sum = num1+ num2;
+    }
+    function returnSum(num1, num2){
+        var sum = num1+ num2;
+        return sum;
+    }
+    //randomNum func built in 
+        //will never be 1 but could be 0; 
+        // gives decimal
+        //uses clock for rand 
+    function randInt(min, max){
+        var range = max-min +1 //+1 means inclusive 
+        var randNum = Math.random();
+       randNum = randNum * range;
+       randNum = Math.floor(randNum); //rounds down
+        
+        return randNum
+    }
     // function call
-    doStuff();
+    // addNums(23+44);
+    // var sumReturned = returnSum(66,55);
+    // console.log(sumReturned);
+    // console.log(returnSum(33,11));
+    // myFunc();
+    console.log(randInt(77,1029));
+    var arrayNums = [];
+    for (var i=0; i<10;i++){
+        arrayNums[i]= randInt(1,100);
+    }
+    console.log(arrayNums)
     </script>
 </body>
 </html>
