@@ -10,7 +10,10 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color:#e9e2d8;
+    padding:20px;
 }
+
 
 form {
     width: 400px; 
@@ -41,4 +44,89 @@ article {
     padding: 10px;
     border: 1px solid #333;
     box-sizing: border-box;
+}
+main{
+    display:flex;
+}
+.hidden {
+    display: none;
+}
+
+.showing {
+    display: flex;
+}
+
+#overlay {
+    position: absolute;
+    background-color: rgba(15, 53, 12, 0.5);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%; 
+    height: 80vh;
+    padding: 40px; 
+    border-radius: 15px; 
+}
+
+#overlay article,
+#overlay div {
+    flex: 1;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+#overlay div {
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background-color: #b8d8b7; /* Light green background */
+}
+
+#overlay article {
+    font-family: 'Roboto', sans-serif; /* or 'Open Sans', sans-serif; */
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    background-color: #e9e2d8; /* Dark green background */
+}
+
+#overlay article p {
+    margin: 20px; /* Add some margin for better readability */
+}
+#overlay div img {
+    max-width: 100%;
+    max-height: 100%;
+    height: auto;
+    width: 100%;
+    object-fit: cover; 
+    position: relative;
+}
+
+#overlay div p {
+    z-index: 2;
+    font-family: 'Segoe Script', cursive;
+}
+#shotsPos{
+    position: absolute;
+    bottom: 510px; 
+    left: 920px; 
+}
+#MilkPos{
+    position: absolute;
+    bottom: 425px; 
+    left: 920px; 
+
+}
+#SyrupPos{
+    position: absolute;
+    bottom: 470px; 
+    left: 920px; 
+}
+#namePos{
+    position: absolute;
+    bottom:600px; 
+    left: 900px; 
+}
+#closeMessage{
+    position: absolute;
+    bottom:200px; 
+    left: 720px; 
 }
