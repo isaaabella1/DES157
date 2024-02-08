@@ -78,25 +78,25 @@ main{
 #overlay div {
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
-    background-color: #b8d8b7; /* Light green background */
+    background-color: #b8d8b7; 
 }
 
 #overlay article {
-    font-family: 'Roboto', sans-serif; /* or 'Open Sans', sans-serif; */
+    font-family: 'Roboto', sans-serif; 
     border-top-left-radius: 15px;
     border-bottom-left-radius: 15px;
-    background-color: #e9e2d8; /* Dark green background */
+    background-color: #e9e2d8; 
 }
 
 #overlay article p {
-    margin: 20px; /* Add some margin for better readability */
+    margin: 20px; 
 }
 #overlay div img {
     max-width: 100%;
     max-height: 100%;
     height: auto;
     width: 100%;
-    object-fit: cover; 
+    /* object-fit: cover;  */
     position: relative;
 }
 
