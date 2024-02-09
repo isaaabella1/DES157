@@ -130,3 +130,8 @@ main{
     bottom:200px; 
     left: 720px; 
 }
+/* div : relative
+- make specifc size in pixels 
+- if not percents, set outter div to specific size
+inner :absolute 
+- use percentages */
