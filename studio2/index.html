@@ -3,9 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Every Picture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    
+    <h1 class="caveat-font">Hover over a box to see a sketch</h1>
+    <p id="A_Drawing_of_my_shoes_at_the_park" class="caveat-font" data-text="A Drawing of my shoes at the park">1</p>
+    <p id="A_sketch_of_a_phone_box_and_my_shadow_at_the_MU" class="caveat-font" data-text="A sketch of a phone box and my shadow at the MU">2</p>
+    <p id="Sketching_the_inside_of_my_car_at_the_library" class="caveat-font" data-text="Sketching the inside of my car at the library">3</p>
+    <p id="My_house_in_Chico_with_my_car_parked_in_front" class="caveat-font" data-text="My house in Chico with my car parked in front">4</p>
+    <p id="My_livingroom_in_Davis" class="caveat-font" data-text="My livingroom in Davis">5</p>
+
+    <div id="overlayBoots" class="overlay">
+        <img src="images/Boots.jpg" alt="Drawing of Shoes" class="scrolling-image">
+    </div>
+    <div id="overlayBusSketch" class="overlay">
+        <img src="images/busSketch.jpg" alt="MU Bus Stop" class="scrolling-image small-image">
+    </div>
+    <div id="overlayCarSketch" class="overlay">
+        <img src="images/CarSketch.jpg" alt="Sketch From My Car" class="scrolling-image small-image">
+    </div>
+    <div id="overlayChicoHouse" class="overlay">
+        <img src="images/ChicoHouse.jpg" alt="My Car in Front of My House" class="scrolling-image">
+    </div>
+    <div id="overlayLivingRoomSketch" class="overlay">
+        <img src="images/LivingRoomSketchEdited.jpg" alt="Drawing of My Living Room" class="scrolling-image">
+    </div>
+
+    <script defer src="script.js"></script>
 </body>
 </html>
