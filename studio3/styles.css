@@ -1,0 +1,43 @@
+.board-container {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-gap: 2px;
+}
+
+.grid-cell {
+    width: 40px;
+    height: 40px;
+    background-color: #99c2ff;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.ship {
+    background-color: #666;
+    color: #fff;
+    /* Add more styling if needed */
+}
+.board-container {
+    display: grid;
+    grid-template-columns: repeat(10, 40px);
+    grid-gap: 2px;
+}
+
+.grid-cell {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.firing-board-cell {
+    background-color: #99c2ff; /* Firing board color */
+}
+
+.ship-board-cell {
+    background-color: #c2ffc2; /* Ship board color */
+}
