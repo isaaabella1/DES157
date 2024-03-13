@@ -1,3 +1,6 @@
+(function() {
+    "use strict";
+    console.log("reading js");
 class Ship {
     constructor(name, length, displayChar) {
         this.displayChar = displayChar; // Symbol representing the ship on the board
@@ -255,3 +258,4 @@ renderBoard(firingBoardContainer, player1.firingBoard, true);
 renderBoard(shipBoardContainer, player1.shipBoard, false);
 
 console.log("Ship Placement:Computer board", computerPlayer.shipBoard);
+})();
