@@ -41,3 +41,17 @@
 .ship-board-cell {
     background-color: #c2ffc2; /* Ship board color */
 }
+#messages {
+    margin-top: 10px; /* Adjust the margin-top value to add more or less spacing */
+    padding: 10px;    /* Adjust the padding value to add more or less spacing */
+    border: 1px solid #ccc; /* Optional: Add a border for better visual separation */
+}
+
+/* Add this style to your existing CSS to style each individual message div */
+#messages div {
+    margin-bottom: 5px; /* Adjust the margin-bottom value to add more or less spacing between messages */
+}
+.hit-cell {
+    background-color: red; /* Change the color to your preferred style for hits */
+    color: white; /* Change the text color for hits */
+}
