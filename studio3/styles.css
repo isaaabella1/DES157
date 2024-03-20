@@ -1,28 +1,25 @@
+body {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#instructions,
+#messages {
+    margin: 0 20px;
+}
+
+.instructions h1,
+#messages p {
+    margin-bottom: 10px;
+}
+
 .board-container {
     display: grid;
     grid-template-columns: repeat(10, 40px);
     grid-gap: 2px;
-}
-
-.grid-cell {
-    width: 40px;
-    height: 40px;
-    background-color: #99c2ff;
-    text-align: center;
-    line-height: 40px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-.ship {
-    background-color: #666;
-    color: #fff;
-    /* Add more styling if needed */
-}
-.board-container {
-    display: grid;
-    grid-template-columns: repeat(10, 40px);
-    grid-gap: 2px;
+    margin-bottom: 20px;
 }
 
 .grid-cell {
@@ -41,17 +38,8 @@
 .ship-board-cell {
     background-color: #c2ffc2; /* Ship board color */
 }
-#messages {
-    margin-top: 10px; /* Adjust the margin-top value to add more or less spacing */
-    padding: 10px;    /* Adjust the padding value to add more or less spacing */
-    border: 1px solid #ccc; /* Optional: Add a border for better visual separation */
-}
 
-/* Add this style to your existing CSS to style each individual message div */
-#messages div {
-    margin-bottom: 5px; /* Adjust the margin-bottom value to add more or less spacing between messages */
-}
 .hit-cell {
-    background-color: red; /* Change the color to your preferred style for hits */
-    color: white; /* Change the text color for hits */
+    background-color: red;
+    color: white;
 }

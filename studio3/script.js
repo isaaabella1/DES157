@@ -16,6 +16,7 @@ class Player {
         this.name = name; // Player's name
         this.shipsSunk = 0; // Number of ships sunk by the player
         this.isAI = isAI; // Flag indicating if the player is controlled by the AI
+        this.shipsPlaced = 0; 
         this.ships = [ // Array containing the player's ships
             new Ship('Carrier', 3, 'A'),
             new Ship('Battleship', 4, 'B'),
@@ -27,36 +28,36 @@ class Player {
         this.firingBoard = createEmptyBoard("*"); // 2D array representing the player's firing history on the opponent's board
     }
 }
-const humanPlayerShipBoard = [  
-    ['*', '*', '*', 'A', 'A', 'A', '*', '*', '*', '*'],
-    ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
-    ['*', '*', '*', '*', '*', 'B', 'B', 'B', 'B', '*'],
-    ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*'],
-    ['*', '*', '*', '*', '*', 'C', '*', '*', '*', '*'],
-    ['D', 'D', 'D', '*', '*', 'C', '*', '*', '*', '*'],
-    ['*', '*', '*', '*', '*', 'C', '*', '*', '*', '*'],
-    ['*', '*', '*', '*', '*', '*', '*', '*', '*', 'E'],
-    ['*', '*', '*', '*', '*', '*', '*', '*', '*', 'E'],
-    ['*', '*', '*', '*', '*', '*', '*', '*', '*', '*']
-];
 const boardSize = 10;
+const humanPlayerShipBoard = createEmptyBoard('*');
+
 const aiPlayerShipBoard = createEmptyBoard("*");
 const firingBoardContainer = document.getElementById('firing-board-container');
 const shipBoardContainer = document.getElementById('ship-board-container');
 const messagesDiv = document.getElementById('messages');
+let donePlaceingShips = false;
 
-
-// const playerName = prompt("Enter Player 1's name:");
-const playerName = "Isabella";  //for testing change later
-//give ai board here? placeAIShips();
+ const playerName = prompt("Enter Player 1's name:");
+// const playerName = "Isabella";  //for testing change later!!!!
 const player1 = new Player("Isabella", humanPlayerShipBoard);
 const computerPlayer = new Player('Computer', aiPlayerShipBoard, true);
 const players =  [player1,computerPlayer];
 let currentPlayer = 0;
 computerPlayer.shipBoard = placeAIShips();
 // let gameBoard = createEmptyBoard();
+const GameWon = new Audio('sounds/GameWon.m4a');
+const hitSound = new Audio('sounds/hitSound.m4a');
+const missSound = new Audio('sounds/missSound.m4a');
 
+// Function to play hit sound
+function playHitSound() {
+    hitSound.play();
+}
 
+// Function to play miss sound
+function playMissSound() {
+    missSound.play();
+}
 function createEmptyBoard( char) {
     const board = [];
     for (let i = 0; i < boardSize; i++) {
@@ -84,6 +85,11 @@ function renderBoard(container, board, isFiringBoard) {
                 });
             } else {
                 cell.classList.add('ship-board-cell');
+                if(!donePlaceingShips){
+                cell.addEventListener('click', function() {
+                    placeShips(i, j);
+                });
+                }
             }
 
             cell.textContent = board[i][j];
@@ -92,17 +98,97 @@ function renderBoard(container, board, isFiringBoard) {
     }
 }
 // Function to handle ship placement by the player
-function placeShips(row,col){
-    messagesDiv.innerHTML = 'Click on the ship board to place your ships.<br>';
+document.addEventListener('keydown', function(event) {
+    const key = event.key.toLowerCase(); // Convert the key to lowercase
 
-    // Add a click event listener to each cell on the ship board
-    for (let i = 0; i < boardSize; i++) {
-        for (let j = 0; j < boardSize; j++) {
-//if there have been num Ships valid clicks, then end place Ships
+    // Check if the user pressed 'v' or 'h' and update the orientation of the current ship accordingly
+    if (key === 'v' || key === 'h') {
+        // Get the current ship to be placed
+        const currentShip = player1.ships[player1.shipsPlaced];
 
+        // Check if the current ship exists and is not already sunk
+        if (currentShip && !currentShip.isSunk) {
+            // Assign true to current ship's isVertical property if 'v' is pressed, otherwise assign false
+            currentShip.isVertical = key === 'v';
             
+            // Display a message indicating the new orientation
+            messagesDiv.innerHTML += `${currentShip.name} orientation changed to ${currentShip.isVertical ? 'vertical' : 'horizontal'}<br>`;
+            
+            // Render the updated ship board
+            renderBoard(shipBoardContainer, player1.shipBoard, false);
         }
     }
+});
+function placeShips(row, col) {
+    // Get the current ship to be placed
+    const currentShip = player1.ships[player1.shipsPlaced];
+
+    // Check if the current ship can be placed at the clicked position
+    if (isValidPlacement(row, col, currentShip, player1.shipBoard)) {
+        // Place the ship on the board
+        if (currentShip.isVertical) {
+            for (let i = 0; i < currentShip.length; i++) {
+                player1.shipBoard[row + i][col] = currentShip.displayChar;
+            }
+        } else {
+            for (let i = 0; i < currentShip.length; i++) {
+                player1.shipBoard[row][col + i] = currentShip.displayChar;
+            }
+        }
+        
+        // Render the updated ship board
+        renderBoard(shipBoardContainer, player1.shipBoard, false);
+        
+        // Update the text box to indicate the ship being placed
+        messagesDiv.innerHTML += `${currentShip.name} placed`;
+        if(currentShip.isVertical){
+            messagesDiv.innerHTML += ` vertical<br>`;
+        }
+        else{
+            messagesDiv.innerHTML += ` Horizontal<br>`;
+        }
+        
+        // Check if all ships have been placed
+        if (player1.shipsPlaced === player1.ships.length - 1) {
+            donePlaceingShips = true; // Set the flag to indicate all ships have been placed
+
+            messagesDiv.innerHTML = `<strong>All ships have been placed!</strong><br> Begin making Guesses on the blue board to find your opponent's ships!<br>`;
+        } else {
+            // Move to the next ship
+            player1.shipsPlaced++;
+        }
+    } else {
+        messagesDiv.innerHTML += `Invalid placement for ${currentShip.name}<br>`;
+    }
+}
+
+
+function isValidPlacement(row, col, ship, board) {
+    // Check if the ship fits within the bounds of the board
+    if (ship.isVertical) {
+        if (row + ship.length > boardSize) {
+            return false;
+        }
+    } else {
+        if (col + ship.length > boardSize) {
+            return false;
+        }
+    }
+    
+    // Check if the cells are empty for ship placement
+    for (let i = 0; i < ship.length; i++) {
+        if (ship.isVertical) {
+            if (board[row + i][col] !== "*") {
+                return false;
+            }
+        } else {
+            if (board[row][col + i] !== "*") {
+                return false;
+            }
+        }
+    }
+    
+    return true;
 }
 // Function to handle firing on opponent's board by the player
 function handleCellClick(row, col) {
@@ -110,6 +196,7 @@ function handleCellClick(row, col) {
        // Check if the cell contains a ship
         if (players[1].shipBoard[row][col] !== "*") {
             messagesDiv.innerHTML+=`Hit at (${row}, ${col}) on ${players[1].name}'s ship board<br>`;
+            playHitSound();
             // write checkWhichShipHit();
             UpdateFiringBoard(row,col,"Hit"); 
             // this.style.color = 'red';
@@ -118,19 +205,18 @@ function handleCellClick(row, col) {
             UpdateFiringBoard(row,col,"Miss");
             // this.style.backgroundColor = 'blue';
             messagesDiv.innerHTML=`Player Guess (${row},${col}) was a miss<br>`;
+            playMissSound();
         }
         if (hasPlayerWon(players[currentPlayer])) {
-            messagesDiv.innerHTML=`${players[0].name} has won!<br>`;  
-            messagesDiv.innerHTML += `<button onclick="playAgain()">Play Again</button>`;//added
-            // Perform any actions or display messages for winning
+            messagesDiv.innerHTML=`${player1.name} has won!<br>`; 
+            GameWon.play(); 
         } else {
             AITurn();
         }
         
 }
-function playAgain() {
-    location.reload(); // Reload the page
-}
+
+
 // Function to update the firing board with hit or miss information
 function UpdateFiringBoard(row, col, NewChar) {
     players[0].firingBoard[row][col] = NewChar;
@@ -175,16 +261,16 @@ function checkAIGuess(row, col,player1){
         HitShip(row, col, player1);
         updateShipsBoard(row,col,"Hit"); 
         messagesDiv.innerHTML+=`AI's guess ${row+1}, ${col+1} Location was a Hit<br>`;
+        playHitSound();
         
     } else {
         updateShipsBoard(row,col,"Miss");
         messagesDiv.innerHTML+=`AI's guess (${row+1}, ${col+1}) Location was a miss<br>`;
+        playMissSound();
     }
     if (hasPlayerWon(players[1])) {  
         messagesDiv.innerHTML+=`${players[1].name} has won!!<br>`;
-        messagesDiv.innerHTML += `<button onclick="playAgain()">Play Again</button>`;//added
 
-        // Perform any actions or display messages for winning
     } else {
         switchPlayer();
     }
@@ -206,10 +292,6 @@ function hasPlayerWon(currentPlayer){
         return false;
     }
 }
-
-
-function handleShipPlacement(row, col) {}
-// Initial render
 
 
 //Game Control Functions 
@@ -250,9 +332,12 @@ function isValidChord(row, col, ship, board) {
     }
     return true;
 }
+
+
 // function AIHunt(){}
 // Destroy Mode
 // In Destroy mode, the AI will shoot at all locations around the oldest location hit. The AI will fire at the surrounding locations in this order: left, up, right, then down. If any hits are scored they are added to the list of locations to fire at. You return to Hunt mode once all of these locations have been fired at. 
+// Get the toggle-orientation button element
 
 renderBoard(firingBoardContainer, player1.firingBoard, true);
 renderBoard(shipBoardContainer, player1.shipBoard, false);
